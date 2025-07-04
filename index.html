@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Trading Journal - Scalping Backtest</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -22,17 +22,17 @@
     table {
       border-collapse: collapse;
       width: 100%;
-      background-color: black;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid #ccc; /* Border luar tabel */
+      border: 1px solid #ccc;
     }
 
     th, td {
       padding: 12px 16px;
       text-align: center;
-      border: 1px solid #ccc; /* Border antar sel */
+      border: 1px solid #ccc;
       vertical-align: middle;
     }
 
@@ -40,6 +40,16 @@
       background-color: #e2e8f0;
       font-weight: 600;
       color: #1f2937;
+    }
+
+    /* ✅ Atasi baris gelap dan tambahkan striping */
+    tbody tr {
+      background-color: white !important;
+      color: #333 !important;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9fafb !important;
     }
 
     tr:hover {
@@ -59,18 +69,21 @@
       table, thead, tbody, th, td, tr {
         display: block;
       }
+
       th {
         position: sticky;
         top: 0;
         background: #e2e8f0;
         z-index: 2;
       }
+
       td {
         border: none;
         position: relative;
         padding-left: 50%;
         border-bottom: 1px solid #ccc;
       }
+
       td::before {
         position: absolute;
         left: 16px;
