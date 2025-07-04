@@ -32,6 +32,7 @@
       padding: 12px 16px;
       text-align: center;
       border-bottom: 1px solid #e2e8f0;
+      vertical-align: middle;
     }
 
     th {
@@ -44,29 +45,11 @@
       background-color: #f1f5f9;
     }
 
-    @media (max-width: 768px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-      th {
-        position: sticky;
-        top: 0;
-        background: #e2e8f0;
-        z-index: 2;
-      }
-      td {
-        border: none;
-        position: relative;
-        padding-left: 50%;
-      }
-      td::before {
-        position: absolute;
-        left: 16px;
-        top: 12px;
-        font-weight: bold;
-        white-space: nowrap;
-        content: attr(data-label);
-      }
+    img {
+      max-height: 80px;
+      max-width: 100px;
+      margin: 3px;
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -86,7 +69,7 @@
         const tableHead = document.querySelector('#data-table thead');
         const tableBody = document.querySelector('#data-table tbody');
 
-        // Create table header
+        // Buat header tabel
         const headerRow = document.createElement('tr');
         headers.forEach(header => {
           const th = document.createElement('th');
@@ -95,28 +78,35 @@
         });
         tableHead.appendChild(headerRow);
 
-        // Create table rows
+        // Buat baris-baris data
         lines.slice(1).forEach(line => {
           const row = document.createElement('tr');
           const cells = line.split(',');
+
           cells.forEach((cell, i) => {
             const td = document.createElement('td');
-            if (headers[i] === 'Picture') {
-              const img = document.createElement('img');
-              img.src = cell; // Path gambar dari CSV, misalnya 'images/trade1.png'
-              img.style.width = '100px'; // Atur ukuran gambar
-              td.appendChild(img);
+            const header = headers[i];
+
+            if (header === 'Picture' && cell.trim() !== '') {
+              const urls = cell.split('|');
+              urls.forEach(url => {
+                const img = document.createElement('img');
+                img.src = url.trim();
+                img.alt = 'Chart';
+                td.appendChild(img);
+              });
             } else {
               td.textContent = cell;
             }
-            td.setAttribute('data-label', headers[i]);
+
             row.appendChild(td);
           });
+
           tableBody.appendChild(row);
         });
       })
       .catch(err => {
-        document.body.innerHTML = "<p style='color:red;'>Gagal memuat data trading_data.csv. Pastikan file ini ada di folder yang sama dengan index.html</p>";
+        document.body.innerHTML = "<p style='color:red;'>⚠️ Gagal memuat trading_data.csv. Pastikan file ini berada di direktori yang sama dengan index.html</p>";
         console.error(err);
       });
   </script>
