@@ -1,25 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Trading Journal</title>
+  <title>Trading Journal - Scalping Backtest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      margin: 0;
+      padding: 40px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #1e293b;
+      margin-bottom: 30px;
+    }
+
     table {
       border-collapse: collapse;
       width: 100%;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      overflow: hidden;
     }
+
     th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
+      padding: 12px 16px;
       text-align: center;
+      border-bottom: 1px solid #e2e8f0;
     }
+
     th {
-      background-color: #f2f2f2;
+      background-color: #e2e8f0;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+
+    @media (max-width: 768px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      th {
+        position: sticky;
+        top: 0;
+        background: #e2e8f0;
+        z-index: 2;
+      }
+      td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+      }
+      td::before {
+        position: absolute;
+        left: 16px;
+        top: 12px;
+        font-weight: bold;
+        white-space: nowrap;
+        content: attr(data-label);
+      }
     }
   </style>
 </head>
 <body>
-  <h2>Trading Journey - Scalping Backtest</h2>
+  <h2>📊 Trading Journal – Scalping Backtest</h2>
   <table id="data-table">
     <thead></thead>
     <tbody></tbody>
@@ -46,13 +98,19 @@
         // Create table rows
         lines.slice(1).forEach(line => {
           const row = document.createElement('tr');
-          line.split(',').forEach(cell => {
+          const cells = line.split(',');
+          cells.forEach((cell, i) => {
             const td = document.createElement('td');
             td.textContent = cell;
+            td.setAttribute('data-label', headers[i]);
             row.appendChild(td);
           });
           tableBody.appendChild(row);
         });
+      })
+      .catch(err => {
+        document.body.innerHTML = "<p style='color:red;'>Gagal memuat data trading_data.csv. Pastikan file ini ada di folder yang sama dengan index.html</p>";
+        console.error(err);
       });
   </script>
 </body>
