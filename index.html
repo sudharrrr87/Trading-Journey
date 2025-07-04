@@ -26,12 +26,13 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.05);
       border-radius: 10px;
       overflow: hidden;
+      border: 1px solid #ccc; /* Border luar tabel */
     }
 
     th, td {
       padding: 12px 16px;
       text-align: center;
-      border-bottom: 1px solid #e2e8f0;
+      border: 1px solid #ccc; /* Border antar sel */
       vertical-align: middle;
     }
 
@@ -68,6 +69,7 @@
         border: none;
         position: relative;
         padding-left: 50%;
+        border-bottom: 1px solid #ccc;
       }
       td::before {
         position: absolute;
@@ -105,7 +107,7 @@
         });
         tableHead.appendChild(headerRow);
 
-        // Buat baris-baris data
+        // Buat baris data
         lines.slice(1).forEach(line => {
           const row = document.createElement('tr');
           const cells = line.split(',');
@@ -126,6 +128,7 @@
               td.textContent = cell;
             }
 
+            td.setAttribute('data-label', header);
             row.appendChild(td);
           });
 
