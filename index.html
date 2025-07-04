@@ -101,7 +101,14 @@
           const cells = line.split(',');
           cells.forEach((cell, i) => {
             const td = document.createElement('td');
-            td.textContent = cell;
+            if (headers[i] === 'Picture') {
+              const img = document.createElement('img');
+              img.src = cell; // Path gambar dari CSV, misalnya 'images/trade1.png'
+              img.style.width = '100px'; // Atur ukuran gambar
+              td.appendChild(img);
+            } else {
+              td.textContent = cell;
+            }
             td.setAttribute('data-label', headers[i]);
             row.appendChild(td);
           });
